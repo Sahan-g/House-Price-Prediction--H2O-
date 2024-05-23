@@ -81,7 +81,7 @@ def predict_batch(model,file_path):
         predictions_df = predictions.as_data_frame()
 
    
-    print(predictions_df)
+    
     return predictions_df
 
 if __name__ =='__main__':

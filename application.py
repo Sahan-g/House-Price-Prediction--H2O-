@@ -9,13 +9,11 @@ h2o.init()
 model = h2o.load_model('./saved_models/StackedEnsemble_BestOfFamily_1_AutoML_3_20240521_131303')
 
 
-saved_predictions = []
-
 @app('/housepriceprediction')
 async def serve(q: Q):
     '''
     main endpoint of the application 
-    initailys shows the input form to predict price of a house
+    initialy shows the input form to predict price of a house
     '''
 
     if not q.client.initialized:
@@ -38,6 +36,7 @@ async def serve(q: Q):
        
     elif q.args.single:
         
+        del q.page['main_card']
         del q.page['saved']
         del q.page['batch_upload']
         del q.page['result_table']
@@ -83,7 +82,7 @@ def show_main_card(q: Q, area_error=None, bedrooms_error=None, bathrooms_error=N
 
     df = pd.read_csv('./dataset/housing_price_dataset.csv')
 
-    button_visibillity = True if not prediction else False
+    
 
     items = [
         ui.text_xl(content='House Details'),
@@ -136,7 +135,8 @@ def show_main_card(q: Q, area_error=None, bedrooms_error=None, bathrooms_error=N
 
         
         ui.buttons([
-            ui.button(name='predict', label='Predict',visible=button_visibillity),
+           
+            ui.button(name='predict', label='Predict'),
         ],justify='center')
     ]
 
